@@ -5,14 +5,29 @@ namespace Chess
 {
     class Game
     {
+        private Gamer _currentPlayer;
+
+        private Gamer _blackPlayer;
+        private Gamer _whitePlayer;
+
         public static void Main(string[] param)
         {
-            
         }
 
         public Game()
         {
-            
+        }
+
+        private void PassStepTo(bool color)
+        {
+            // transfer to gamer with Action
+
+            if (color)
+                _currentPlayer = _whitePlayer;
+            else
+                _currentPlayer = _blackPlayer;
+
+            _currentPlayer.Step();
         }
 
 
@@ -38,18 +53,20 @@ namespace Chess
                 Horse horseg1 = new Horse(new Coordinates('g', 1), true);
                 Horse horseb8 = new Horse(new Coordinates('b', 8), false);
                 Horse horseg8 = new Horse(new Coordinates('g', 8), false);
+
+                horseb1.Move(';', ' ');
             }
-            else if(figure is King)
+            else if (figure is King)
             {
                 King kinge1 = new King(new Coordinates('e', 1), true);
                 King kinge8 = new King(new Coordinates('e', 8), false);
             }
-            else if(figure is Queen)
+            else if (figure is Queen)
             {
                 Queen queend1 = new Queen(new Coordinates('d', 1), true);
                 Queen queend8 = new Queen(new Coordinates('d', 8), false);
             }
-            else if(figure is Pawn)
+            else if (figure is Pawn)
             {
                 Pawn pawna2 = new Pawn(new Coordinates('a', 2), true);
                 Pawn pawnb2 = new Pawn(new Coordinates('b', 2), true);
