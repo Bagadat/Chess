@@ -4,12 +4,11 @@ namespace Chess
 {
     abstract class ChessFigure
     {
-        protected Coordinates StartPosition { get; }
 
         /// <summary>
         /// true- white; false- black
         /// </summary>
-        protected bool Color { get; }
+        public bool Color { get; }
 
         private Coordinates _chessCoordinates;
         protected Coordinates ChessCoordinates
@@ -28,10 +27,25 @@ namespace Chess
 
         public ChessFigure(Coordinates startPosition, bool color)
         {
-            StartPosition = startPosition;
+            ChessCoordinates = startPosition;
             Color = color;
         }
 
-        public abstract bool Move(char x, char y);
+        public virtual bool Move(char x, char y)
+        {
+            return true;
+        }
+
+        private string GetBoardCoordinates()
+        {
+            return string.Format("{0}{1}", (char)(_chessCoordinates.X + 'a'), (char)(_chessCoordinates.Y + '1'));
+        }
+
+        public bool CheckCurrentPosition(string currentPosition)
+        {
+            if (currentPosition.ToUpper() == GetBoardCoordinates().ToUpper())
+                return true;
+            return false;
+        }
     }
 }
