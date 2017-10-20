@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 
 namespace Chess
-{
+{ 
     class Game
     {
+        
         private Gamer _currentPlayer;
 
         private Gamer _blackPlayer;
@@ -12,15 +13,16 @@ namespace Chess
 
         public static void Main(string[] param)
         {
+            
         }
 
         public Game()
         {
         }
 
-        private void PassStepTo(bool color)
+        public void PassStepTo(bool color)
         {
-            // transfer to gamer with Action
+            
 
             if (color)
                 _currentPlayer = _whitePlayer;
@@ -28,6 +30,8 @@ namespace Chess
                 _currentPlayer = _blackPlayer;
 
             _currentPlayer.Step();
+            
+            
         }
 
 
@@ -54,7 +58,7 @@ namespace Chess
                 Horse horseb8 = new Horse(new Coordinates('b', 8), false);
                 Horse horseg8 = new Horse(new Coordinates('g', 8), false);
 
-                horseb1.Move(';', ' ');
+                
             }
             else if (figure is King)
             {
