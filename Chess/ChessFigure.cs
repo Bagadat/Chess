@@ -15,8 +15,6 @@ namespace Chess
         {
             get
             {
-                Console.Write((char)(_chessCoordinates.X + 'a'));
-                Console.WriteLine((char)(_chessCoordinates.Y + '1'));
                 return _chessCoordinates;
             }
             set
@@ -38,7 +36,8 @@ namespace Chess
 
         private string GetBoardCoordinates()
         {
-            return string.Format("{0}{1}", (char)(_chessCoordinates.X + 'a'), (char)(_chessCoordinates.Y + '1'));
+            string result = string.Format("{0}{1}", (char)(_chessCoordinates.X + 'a'), (char)(_chessCoordinates.Y + '1'));
+            return result;
         }
 
         public bool CheckCurrentPosition(string currentPosition)

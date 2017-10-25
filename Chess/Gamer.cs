@@ -1,30 +1,39 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
-using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 namespace Chess
 {
     class Gamer
     {
-        Game _passToStep;
+        // Создать флаг окончания игры
         TimeSpan _gamersTime = new TimeSpan(0, 5, 0);
+        private Action<bool> PassStepTo;
 
         public string Name { get; }
-        List<ChessFigure> _figures { get; }
+        IEnumerable<ChessFigure> _figures { get; }
 
-        public Gamer(string name, List<ChessFigure> figures)
+        public Gamer(string name, IEnumerable<ChessFigure> figures, Action<bool> passStepTo)
         {
             _figures = figures;
             Name = name;
+            PassStepTo = passStepTo;
         }
 
         public void Step()
         {
-            
             DateTime start = DateTime.Now;
+
+            // Засечь время (таймер или поток)
+            Timer timer = new Timer(Hello, null, _gamersTime, new TimeSpan(1,0,0));
             string gamerStep = Console.ReadLine();
+       
+            //Заюзать флаг окончания игры
+
+            DateTime stop = DateTime.Now;
+            TimeSpan delta = stop.Subtract(start);
+            _gamersTime = _gamersTime.Subtract(delta);
+            timer.Dispose();
 
             string[] startToEnd = gamerStep.Split('-');
 
@@ -36,20 +45,19 @@ namespace Chess
                     figure.Move(startToEnd[1][0], startToEnd[1][1]);
                     break;
                 }
+                // Обработать случаи:
+                // 1) когда фигуры найдено не было
+                // 2) когда фтгурой сходить не получилось
+                // Только в случае успешного хода мы передаем ход
             }
-            DateTime stop = DateTime.Now;
-            TimeSpan delta = start - stop;
-            long seconds = delta.Seconds;
+            
 
-            TimeSpan newTime = new TimeSpan(seconds);
-            _gamersTime = _gamersTime.Subtract(newTime);
-            if (_gamersTime != null)
-            {
-                Action<bool> method = _passToStep.PassStepTo;
-                method(GetColor());
-            }
+            PassStepTo.Invoke(!GetColor());
+        }
 
-
+        private void Hello(object state)
+        {
+            // Закончить игру
         }
 
         public bool GetColor()
