@@ -7,8 +7,8 @@
 
         public Coordinates(int x, int y)
         {
-            Y = y;
-            X = x;
+            Y = y - '1';
+            X = x - 'a';
         }
     }
 }
