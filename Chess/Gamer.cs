@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using System.Text;
 using System.Threading.Tasks;
-
 namespace Chess
 {
     class Gamer
     {
+        Game _passToStep;
         TimeSpan _gamersTime = new TimeSpan(0, 5, 0);
 
         public string Name { get; }
@@ -21,7 +22,8 @@ namespace Chess
 
         public void Step()
         {
-            //start
+            
+            DateTime start = DateTime.Now;
             string gamerStep = Console.ReadLine();
 
             string[] startToEnd = gamerStep.Split('-');
@@ -35,10 +37,19 @@ namespace Chess
                     break;
                 }
             }
-            //stop
+            DateTime stop = DateTime.Now;
+            TimeSpan delta = start - stop;
+            long seconds = delta.Seconds;
 
-            TimeSpan newTime = new TimeSpan(1300);
+            TimeSpan newTime = new TimeSpan(seconds);
             _gamersTime = _gamersTime.Subtract(newTime);
+            if (_gamersTime != null)
+            {
+                Action<bool> method = _passToStep.PassStepTo;
+                method(GetColor());
+            }
+
+
         }
 
         public bool GetColor()
