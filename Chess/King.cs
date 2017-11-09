@@ -8,10 +8,13 @@ namespace Chess
 {
     class King : ChessFigure
     {
-       
+
+        public override int Weight => 100;
+
         public King(Coordinates stratrPosion,bool color ): base(stratrPosion,color)
         {
         }
+
         public override bool Move(char x, char y)
         {
             bool result; 

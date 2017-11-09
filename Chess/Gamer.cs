@@ -9,70 +9,84 @@ namespace Chess
         private bool _flagFinish=false;
         TimeSpan _gamersTime = new TimeSpan(0, 5, 0);
         private Action<bool> PassStepTo;
+        Action<Gamer> FinishGame;
 
         public string Name { get; }
         IEnumerable<ChessFigure> _figures { get; }
 
-        public Gamer(string name, IEnumerable<ChessFigure> figures, Action<bool> passStepTo)
+        public Gamer(string name, IEnumerable<ChessFigure> figures, Action<bool> passStepTo, Action<Gamer> finishGame)
         {
             _figures = figures;
             Name = name;
             PassStepTo = passStepTo;
+            FinishGame = finishGame;
         }
 
         public void Step()
         {
             DateTime start = DateTime.Now;
-            // Засечь время (таймер или поток)
-            TimerCallback timerCallback = new TimerCallback(Hello);
-            Timer timer = new Timer(timerCallback, null, _gamersTime, new TimeSpan(1,0,0));
+            Timer timer = new Timer(new TimerCallback(TimeIsEnd), null, _gamersTime, new TimeSpan(1,0,0));
             
             string gamerStep = Console.ReadLine();
 
-            //Заюзать флаг окончания игры
-
+            if (_flagFinish)
+            {
+                timer.Dispose();
+                FinishGame(null);
+                return;
+            }
 
             timer.Dispose();
 
             string[] startToEnd = gamerStep.Split('-');
 
+            bool successStep = false;
+
             foreach (var figure in _figures)
             {
-               
-                
                 if (figure.CheckCurrentPosition(startToEnd[0]))
                 {
-                    
                     startToEnd[1] = startToEnd[1].ToLower();
-                    if (!figure.Move(startToEnd[1][0], startToEnd[1][1]))
+
+                    bool isFight = CheckPosition(startToEnd[1], GetColor());
+
+                    if (!figure.Move(startToEnd[1][0], startToEnd[1][1], isFight))
                     {
                         Console.WriteLine("Фигура не может так ходить");
-                       
+                        PassStepTo.Invoke(GetColor());
+                        return;
                     }
                     else
-                        Console.WriteLine("Фигура может так ходить");
+                    {
+                        if (isFight)
+                            KickFigure(startToEnd[1]);
 
+                        successStep = true;
+                    }
                     break;
                 }
-               
-                
-                // Обработать случаи:
-                // 1) когда фигуры найдено не было
-                // 2) когда фигурой сходить не получилось
-                // Только в случае успешного хода мы передаем ход
             }
-           // Console.Clear();
+
+            if (!successStep)
+            {
+                Console.WriteLine("Фигура не найдена");
+                PassStepTo.Invoke(GetColor());
+                return;
+            }
+
             DateTime stop = DateTime.Now;
             TimeSpan delta = stop.Subtract(start);
             _gamersTime = _gamersTime.Subtract(delta);
+
+            Console.Clear();
+
             PassStepTo.Invoke(!GetColor());
         }
 
-        private void Hello(object state)
+        private void TimeIsEnd(object state)
         {
-            if (_gamersTime.Minutes == 0) ;
-            Console.WriteLine("Время истекло");
-                
+            _flagFinish = true;
+            Console.WriteLine("Game was finished. Please enter any key to continue.");
         }
 
         public bool GetColor()

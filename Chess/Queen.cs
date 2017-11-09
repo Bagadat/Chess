@@ -8,10 +8,13 @@ namespace Chess
 {
     class Queen : ChessFigure
     {
+        public override int Weight => 4;
+
         public Queen(Coordinates startPosition, bool color) : base(startPosition,color)
         {
 
         }
+
         public override bool Move(char x, char y)
         {
             bool result;

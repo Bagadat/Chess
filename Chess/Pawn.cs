@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Chess
 {
@@ -10,12 +6,14 @@ namespace Chess
     {
         private Coordinates _startPosition { get; set; }
 
+        public override int Weight => 1;
+
         public Pawn(Coordinates startPosition, bool color) : base(startPosition, color)
         {
             _startPosition = startPosition;
         }
 
-        public override bool Move(char x, char y)
+        public override bool Move(char x, char y, bool kick)
         {
             bool result;
 
