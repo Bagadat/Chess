@@ -22,7 +22,7 @@ namespace Chess
 
         public Game()
         {
-            // Реализовать очистку консоли после каждого хода и оповещать по имени игрока о начале хода
+            
         }
 
         private static void PassStepTo(bool color)
@@ -31,7 +31,7 @@ namespace Chess
                 _currentPlayer = _whitePlayer;
             else
                 _currentPlayer = _blackPlayer;
-
+            Console.WriteLine($"Ходит игрок: {_currentPlayer.Name}");
             _currentPlayer.Step();
         }
 
@@ -46,40 +46,42 @@ namespace Chess
         {
             // Почитай про фабрику и попробуй реализовать!!!
 
+          //  ChessFigureFactory creator = new PawnCreator();
+           // ChessFigure figure = creator.ChessFigureCreator();
             listFigures = new List<ChessFigure>()
             {
                 new Elephant(new Coordinates('c', '1'), true),
                 new Elephant(new Coordinates('f', '1'), true),
                 new Elephant(new Coordinates('c', '8'), false),
-             new Elephant(new Coordinates('f', '8'), false),
-             new Castle(new Coordinates('a', '1'), true),
-            new Castle(new Coordinates('h', '1'), true),
-             new Castle(new Coordinates('a', '8'), false),
-             new Castle(new Coordinates('h', '8'), false),
-           new Horse(new Coordinates('b', '1'), true),
-            new Horse(new Coordinates('g', '1'), true),
-            new Horse(new Coordinates('b', '8'), false),
-             new Horse(new Coordinates('g', '8'), false),
-             new King(new Coordinates('e', '1'), true),
-             new King(new Coordinates('e', '8'), false),
-             new Queen(new Coordinates('d', '1'), true),
-            new Queen(new Coordinates('d', '8'), false),
-             new Pawn(new Coordinates('a', '2'), true),
-             new Pawn(new Coordinates('b', '2'), true),
-            new Pawn(new Coordinates('c', '2'), true),
-             new Pawn(new Coordinates('d', '2'), true),
-             new Pawn(new Coordinates('e', '2'), true),
-             new Pawn(new Coordinates('f', '2'), true),
-             new Pawn(new Coordinates('g', '2'), true),
-            new Pawn(new Coordinates('h', '2'), true),
-            new Pawn(new Coordinates('a', '7'), false),
-            new Pawn(new Coordinates('b', '7'), false),
-             new Pawn(new Coordinates('c', '7'), false),
-             new Pawn(new Coordinates('d', '7'), false),
-            new Pawn(new Coordinates('e', '7'), false),
-            new Pawn(new Coordinates('f', '7'), false),
-            new Pawn(new Coordinates('g', '7'), false),
-             new Pawn(new Coordinates('h', '7'), false),
+                new Elephant(new Coordinates('f', '8'), false),
+                new Castle(new Coordinates('a', '1'), true),
+                new Castle(new Coordinates('h', '1'), true),
+                new Castle(new Coordinates('a', '8'), false),
+                new Castle(new Coordinates('h', '8'), false),
+                new Horse(new Coordinates('b', '1'), true),
+                new Horse(new Coordinates('g', '1'), true),
+                new Horse(new Coordinates('b', '8'), false),
+                new Horse(new Coordinates('g', '8'), false),
+                new King(new Coordinates('e', '1'), true),
+                new King(new Coordinates('e', '8'), false),
+                new Queen(new Coordinates('d', '1'), true),
+                new Queen(new Coordinates('d', '8'), false),
+                new Pawn(new Coordinates('a', '2'), true),
+                new Pawn(new Coordinates('b', '2'), true),
+                new Pawn(new Coordinates('c', '2'), true),
+                new Pawn(new Coordinates('d', '2'), true),
+                new Pawn(new Coordinates('e', '2'), true),
+                new Pawn(new Coordinates('f', '2'), true),
+                new Pawn(new Coordinates('g', '2'), true),
+                new Pawn(new Coordinates('h', '2'), true),
+                new Pawn(new Coordinates('a', '7'), false),
+                new Pawn(new Coordinates('b', '7'), false),
+                new Pawn(new Coordinates('c', '7'), false),
+                new Pawn(new Coordinates('d', '7'), false),
+                new Pawn(new Coordinates('e', '7'), false),
+                new Pawn(new Coordinates('f', '7'), false),
+                new Pawn(new Coordinates('g', '7'), false),
+                new Pawn(new Coordinates('h', '7'), false),
             };
         }
 
