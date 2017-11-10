@@ -6,6 +6,14 @@ namespace Chess
 {
     class Game
     {
+        /// <summary>
+        /// Перевести все уведомления на английский.
+        /// Написать статическую функцию инициализании фигуры от позиции.
+        /// Написать функцию подсчета веса фигур.
+        /// Бой фигур!!!!
+        /// Реализовать Шах и Мат!!!
+        /// </summary>
+
         static List<ChessFigure> listFigures = new List<ChessFigure>();
         private static Gamer _currentPlayer;
 
@@ -37,8 +45,20 @@ namespace Chess
 
         private static void InitializePlayers()
         {
-            _whitePlayer = new Gamer("Ilya", listFigures.Where(figure => figure.Color), PassStepTo);
-            _blackPlayer = new Gamer("Bagadat", listFigures.Where(figure => !figure.Color), PassStepTo);
+            _whitePlayer = new Gamer("Ilya", listFigures.Where(figure => figure.Color), PassStepTo, FinishGame);
+            _blackPlayer = new Gamer("Bagadat", listFigures.Where(figure => !figure.Color), PassStepTo, FinishGame);
+        }
+
+        private static void FinishGame(Gamer winner)
+        {
+            if (winner == null)
+            {
+                // Посчитать общий вес фигур.
+                // winner = ?;
+            }
+
+            Console.WriteLine(string.Format("Winner is {0}!", winner.Name));
+            Console.ReadKey();
         }
 
         

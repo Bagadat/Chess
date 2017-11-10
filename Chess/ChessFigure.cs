@@ -23,13 +23,15 @@ namespace Chess
             }
         }
 
+        public abstract int Weight { get; }
+
         public ChessFigure(Coordinates startPosition, bool color)
         {
             ChessCoordinates = startPosition;
             Color = color;
         }
 
-        public virtual bool Move(char x, char y)
+        public virtual bool Move(char x, char y, bool kick)
         {
             return true;
         }

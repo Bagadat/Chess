@@ -8,6 +8,8 @@ namespace Chess
 {
     class Horse : ChessFigure
     {
+        public override int Weight => 2;
+
         public Horse(Coordinates startPosition,bool color) : base(startPosition,color)
         {
         }
